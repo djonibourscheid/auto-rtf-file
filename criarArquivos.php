@@ -18,4 +18,16 @@ if (!$dataValida) {
   exit();
 }
 
-echo "Data válida";
+
+// Capturando mes e ano
+[$mes, $ano] = explode("/", $dataEntrada);
+
+// Validando o mês
+if ($mes < 01 || $mes > 12) {
+  fwrite(STDERR, "Mês inválido. Tente novamente.\n");
+  exit();
+}
+
+// Mostrando quantidade de dias na tela
+$qntDiasMes = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
+fwrite(STDOUT, "Quantidade de dias no mês: $qntDiasMes\n");
