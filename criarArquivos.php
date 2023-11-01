@@ -4,6 +4,7 @@
 $diasDaSemana = ['DOMINGO', 'SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SABADO'];
 $mesesDoAno = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
 $regex = "/^[0-9]{2}[\/][0-9]{4}$/";
+$diasSemanais = 0;
 
 
 // Entrada de data
@@ -60,4 +61,7 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
   fwrite($arquivo, $semana);
 
   fclose($arquivo);
+  $diasSemanais++;
 }
+
+fwrite(STDOUT, "Quantidade de dias criados: $diasSemanais\n");
