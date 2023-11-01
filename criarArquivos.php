@@ -74,14 +74,14 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
       $linha = str_replace("<<[diaSemana]>>", $semana, $linha);
     }
 
-    if (str_contains($linha, "<<[sindicancia]>>") && $numeroSemana === 4) {
-      $linha = str_replace("<<[sindicancia]>>", "SINDICÂNCIA", $linha);
+    if ($numeroSemana == 4 && str_contains($linha, "<<[sindicancia]>>")) {
+      $linha = str_replace("<<[sindicancia]>>", utf8_decode("SINDICÂNCIA"), $linha);
     } else {
       $linha = str_replace("<<[sindicancia]>>", "", $linha);
     }
 
-    if (str_contains($linha, "<<[mensagemSindicancia]>>") && $numeroSemana === 4) {
-      $linha = str_replace("<<[mensagemSindicancia]>>", '* marcar de tarde próximo do dia para ver os horários que pode ou não', $linha);
+    if ($numeroSemana == 4 && str_contains($linha, "<<[mensagemSindicancia]>>")) {
+      $linha = str_replace("<<[mensagemSindicancia]>>", utf8_decode('* marcar de tarde próximo do dia para ver os horários que pode ou não'), $linha);
     } else {
       $linha = str_replace("<<[mensagemSindicancia]>>", "", $linha);
     }
