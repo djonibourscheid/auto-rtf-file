@@ -1,8 +1,8 @@
 <?php
 
 // Variáveis gerais
-$diasDaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-$mesesDoAno = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+$diasDaSemana = ['DOMINGO', 'SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SABADO'];
+$mesesDoAno = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
 $regex = "/^[0-9]{2}[\/][0-9]{4}$/";
 
 
@@ -28,14 +28,17 @@ if ($mes < 01 || $mes > 12) {
   exit();
 }
 
+
 // Mostrando quantidade de dias na tela
 $qntDiasMes = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
 fwrite(STDOUT, "Quantidade de dias no mês: $qntDiasMes\n");
 
 
 // Criando pasta de saída
-$mesEscrito = mb_strtoupper($mesesDoAno[$mes - 1]);
-mkdir($mes - $mesEscrito);
+$mesEscrito = $mesesDoAno[str_pad($mes, 1, '') - 1];
+$nomePasta = str_pad($mes, 2, '0', STR_PAD_LEFT) . ' - ' . $mesEscrito;
+mkdir($nomePasta);
+
 
 // Criando o arquivo de cada dia
 for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
@@ -47,12 +50,12 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
   }
 
   // Transformando o número da semana para texto
-  $semana = mb_strtoupper(str_replace($numeroSemana, $diasDaSemana[$numeroSemana], $numeroSemana));
+  $semana = str_replace($numeroSemana, $diasDaSemana[$numeroSemana], $numeroSemana);
   $dia = str_pad($contadorDia, 2, '0', STR_PAD_LEFT); // de 1 para 01
 
   // Criando o arquivo
   $arquivoNome = "{$dia}-{$mes}-{$ano} {$semana}.rtf"; // 01-11-2023 QUARTA.rtf
-  $arquivo = fopen("$mesEscrito/$arquivoNome", "w+"); // Cria o arquivo na pasta que foi criada anteriormente
+  $arquivo = fopen("$nomePasta/$arquivoNome", "w+"); // Cria o arquivo na pasta que foi criada anteriormente
 
   fwrite($arquivo, $semana);
 
