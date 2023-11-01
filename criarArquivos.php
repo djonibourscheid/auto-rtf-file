@@ -58,7 +58,37 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
   $arquivoNome = "{$dia}-{$mes}-{$ano} {$semana}.rtf"; // 01-11-2023 QUARTA.rtf
   $arquivo = fopen("$nomePasta/$arquivoNome", "w+"); // Cria o arquivo na pasta que foi criada anteriormente
 
-  fwrite($arquivo, $semana);
+  $linhasTemplate = file('template.rtf');
+
+  foreach ($linhasTemplate as $linha) {
+    if (str_contains($linha, "<<[dia]>>")) {
+      $linha = str_replace("<<[dia]>>", $dia, $linha);
+    }
+    if (str_contains($linha, "<<[mes]>>")) {
+      $linha = str_replace("<<[mes]>>", $mes, $linha);
+    }
+    if (str_contains($linha, "<<[ano]>>")) {
+      $linha = str_replace("<<[ano]>>", $ano, $linha);
+    }
+    if (str_contains($linha, "<<[diaSemana]>>")) {
+      $linha = str_replace("<<[diaSemana]>>", $semana, $linha);
+    }
+
+    if (str_contains($linha, "<<[sindicancia]>>") && $numeroSemana === 4) {
+      $linha = str_replace("<<[sindicancia]>>", "SINDICÂNCIA", $linha);
+    } else {
+      $linha = str_replace("<<[sindicancia]>>", "", $linha);
+    }
+
+    if (str_contains($linha, "<<[mensagemSindicancia]>>") && $numeroSemana === 4) {
+      $linha = str_replace("<<[mensagemSindicancia]>>", '* marcar de tarde próximo do dia para ver os horários que pode ou não', $linha);
+    } else {
+      $linha = str_replace("<<[mensagemSindicancia]>>", "", $linha);
+    }
+
+    fwrite($arquivo, $linha);
+  }
+
 
   fclose($arquivo);
   $diasSemanais++;
