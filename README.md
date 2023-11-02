@@ -3,7 +3,7 @@
 
 <p align="center">
   <a href="#-o-que-é">O que é</a> •
-  <a href="#-motivacao">Motivação</a> •
+  <a href="#-motivação">Motivação</a> •
   <a href="#-tecnologias">Tecnologias</a> •
   <a href="#-autor">Autor</a>
 </p>
@@ -30,4 +30,4 @@ O projeto se baseia em script para a automatizar a criação de arquivos repetit
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/djonibourscheid/)
 [![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:djonibourscheid@gmail.com)
 
-Feito com ``muita bateção de cabeça`` por Djoni Bourscheid 👋 [Entre em contato!](https://www.linkedin.com/in/djonibourscheid/)
+Feito com *muita bateção de cabeça* por Djoni Bourscheid 👋 [Entre em contato!](https://www.linkedin.com/in/djonibourscheid/)
