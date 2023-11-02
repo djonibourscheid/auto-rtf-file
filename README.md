@@ -16,7 +16,7 @@ O projeto se baseia em script para a automatizar a criação de arquivos repetit
 - Aprender e desenvolver mais em PHP.
 
 ## 🛠 Tecnologias
-- Foi utulizado PHP neste projeto.
+- Projeto feito com PHP, utilizando regex para validar a data, manipulação de string e strems para a criação dos arquivos.
 
 ## 👋 Autor
 <a href="https://github.com/djonibourscheid">
