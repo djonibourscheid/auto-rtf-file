@@ -8,6 +8,7 @@ $diasSemanais = 0;
 
 
 // Entrada de data
+fwrite(STDOUT, "\n--------------------------------\n");
 fwrite(STDOUT, "Olá! Para gerar a agenda, insira o mês e ano no formato: 01/2024\n");
 $dataEntrada = trim(fgets(STDIN));
 
@@ -38,7 +39,15 @@ fwrite(STDOUT, "Quantidade de dias no mês: $qntDiasMes\n");
 // Criando pasta de saída
 $mesEscrito = $mesesDoAno[str_pad($mes, 1, '') - 1];
 $nomePasta = str_pad($mes, 2, '0', STR_PAD_LEFT) . ' - ' . $mesEscrito;
-mkdir($nomePasta);
+
+// ALTERAR AQUI CASO MUDE OS ARQUIVOS DE LUGAR
+$caminhoDesktop = dir('../../Desktop');
+$caminhoCompletoPasta = "{$caminhoDesktop->path}/$nomePasta";
+
+// Verificar se o diretório não existe
+if (!is_dir($caminhoCompletoPasta)) {
+  mkdir($caminhoCompletoPasta);
+}
 
 
 // Criando o arquivo de cada dia
@@ -56,7 +65,7 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
 
   // Criando o arquivo
   $arquivoNome = "{$dia}-{$mes}-{$ano} {$semana}.rtf"; // 01-11-2023 QUARTA.rtf
-  $arquivo = fopen("$nomePasta/$arquivoNome", "w+"); // Cria o arquivo na pasta que foi criada anteriormente
+  $arquivo = fopen("$caminhoCompletoPasta/$arquivoNome", "w+"); // Cria o arquivo na pasta que foi criada anteriormente
 
   $linhasTemplate = file('template.rtf');
 
@@ -71,7 +80,7 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
       $linha = str_replace("<<[ano]>>", $ano, $linha);
     }
     if (str_contains($linha, "<<[diaSemana]>>")) {
-      $linha = str_replace("<<[diaSemana]>>", $semana, $linha);
+      $linha = str_replace("<<[diaSemana]>>", utf8_decode($semana), $linha);
     }
 
     if ($numeroSemana == 4 && str_contains($linha, "<<[sindicancia]>>")) {
@@ -95,3 +104,5 @@ for ($contadorDia = 01; $contadorDia <= $qntDiasMes; $contadorDia++) {
 }
 
 fwrite(STDOUT, "Quantidade de dias criados: $diasSemanais\n");
+fwrite(STDOUT, "Pasta criada na área de trabalho\n");
+fwrite(STDOUT, "--------------------------------\n");
